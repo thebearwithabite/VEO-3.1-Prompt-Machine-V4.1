@@ -289,7 +289,20 @@ const ShotCard: React.FC<ShotCardProps> = ({
                 <>
                     <button onClick={() => setIsDirectorMode(true)} className="px-3 py-1.5 bg-indigo-700/50 border border-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors hover:bg-indigo-600">Director Mode</button>
                     <button onClick={() => onGenerateSpecificKeyframe(shot.id)} className="px-3 py-1.5 bg-purple-700/50 border border-purple-500 text-white text-xs font-semibold rounded-lg hover:bg-purple-600">Regen Keyframe</button>
-                    {shot.veoStatus !== VeoStatus.COMPLETED && <button onClick={() => onGenerateVideo(shot.id)} className="px-3 py-1.5 bg-green-700 text-white text-xs font-semibold rounded-lg">Generate Video</button>}
+                    {shot.veoStatus !== VeoStatus.COMPLETED && (
+                      <button
+                        onClick={() => onGenerateVideo(shot.id)}
+                        disabled={shot.veoStatus === VeoStatus.QUEUED || shot.veoStatus === VeoStatus.GENERATING}
+                        className="px-3 py-1.5 bg-green-700 hover:bg-green-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
+                      >
+                        {(shot.veoStatus === VeoStatus.QUEUED || shot.veoStatus === VeoStatus.GENERATING) && (
+                          <div className="w-3 h-3 border-2 border-t-transparent border-white rounded-full animate-spin" aria-hidden="true"></div>
+                        )}
+                        {shot.veoStatus === VeoStatus.QUEUED ? 'Queued...' :
+                         shot.veoStatus === VeoStatus.GENERATING ? 'Generating...' :
+                         'Generate Video'}
+                      </button>
+                    )}
                     {shot.veoStatus === VeoStatus.COMPLETED && <button onClick={() => setIsExtendMode(true)} className="px-3 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg">Extend Video</button>}
                     <button onClick={() => setIsEditing(true)} className="px-3 py-1.5 bg-gray-700 text-white text-xs font-semibold rounded-lg">Edit JSON</button>
                 </>
