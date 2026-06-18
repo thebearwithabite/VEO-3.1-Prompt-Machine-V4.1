@@ -19,3 +19,7 @@
 ## 2026-05-15 - Context-Aware Confirmation Dialog Buttons
 **Learning:** Hardcoded button text in reusable components (like ConfirmDialog always saying "Start New Project") creates extremely confusing UX when the dialog is repurposed for other actions like "Reset Application" or "Approve Cost". In addition, destructive actions lack visual distinction from standard actions.
 **Action:** Always provide props to customize button text (`confirmText`, `cancelText`) in reusable dialogs, and use an `isDestructive` boolean prop to alter the primary action styling (e.g. red background, red icon) when the confirmation will delete data or incur costs. Ensure proper `role="dialog"` and `aria-labelledby`/`aria-describedby` are included for accessibility.
+
+## 2026-06-18 - Missing loading states for Video Generation button
+**Learning:** Found that the "Generate Video" button remained statically clickable and unchanged even while the async video generation task was in a QUEUED or GENERATING state. This provided poor user feedback on long-running tasks.
+**Action:** Always replace the static text and active state of async task triggers with a visually disabled state containing an animated loading spinner (e.g., `animate-spin`) and clear status text ("Queued...", "Generating...") when the underlying state enum indicates active processing.
