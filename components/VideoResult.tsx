@@ -289,8 +289,19 @@ const ShotCard: React.FC<ShotCardProps> = ({
                 <>
                     <button onClick={() => setIsDirectorMode(true)} className="px-3 py-1.5 bg-indigo-700/50 border border-indigo-500 text-white text-xs font-semibold rounded-lg transition-colors hover:bg-indigo-600">Director Mode</button>
                     <button onClick={() => onGenerateSpecificKeyframe(shot.id)} className="px-3 py-1.5 bg-purple-700/50 border border-purple-500 text-white text-xs font-semibold rounded-lg hover:bg-purple-600">Regen Keyframe</button>
-                    {shot.veoStatus !== VeoStatus.COMPLETED && <button onClick={() => onGenerateVideo(shot.id)} className="px-3 py-1.5 bg-green-700 text-white text-xs font-semibold rounded-lg">Generate Video</button>}
-                    {shot.veoStatus === VeoStatus.COMPLETED && <button onClick={() => setIsExtendMode(true)} className="px-3 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg">Extend Video</button>}
+                    {shot.veoStatus !== VeoStatus.COMPLETED && (
+                        shot.veoStatus === VeoStatus.QUEUED || shot.veoStatus === VeoStatus.GENERATING ? (
+                            <button disabled className="px-3 py-1.5 bg-gray-700 text-gray-300 text-xs font-semibold rounded-lg flex items-center gap-2 cursor-not-allowed">
+                                <div className="w-3 h-3 border-2 border-t-transparent border-gray-400 rounded-full animate-spin"></div>
+                                {shot.veoStatus === VeoStatus.QUEUED ? 'Queued...' : 'Generating...'}
+                            </button>
+                        ) : (
+                            <button onClick={() => onGenerateVideo(shot.id)} className="px-3 py-1.5 bg-green-700 text-white text-xs font-semibold rounded-lg hover:bg-green-600 transition-colors">
+                                Generate Video
+                            </button>
+                        )
+                    )}
+                    {shot.veoStatus === VeoStatus.COMPLETED && <button onClick={() => setIsExtendMode(true)} className="px-3 py-1.5 bg-green-600 text-white text-xs font-semibold rounded-lg hover:bg-green-500 transition-colors">Extend Video</button>}
                     <button onClick={() => setIsEditing(true)} className="px-3 py-1.5 bg-gray-700 text-white text-xs font-semibold rounded-lg">Edit JSON</button>
                 </>
             )}
