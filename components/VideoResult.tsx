@@ -585,7 +585,10 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
               <DownloadIcon className="w-4 h-4" />
               Download All Images
           </button>
-          <button onClick={onExportPackage} className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-lg text-sm border border-green-500">Export ZIP Package</button>
+          <button onClick={onExportPackage} className="px-4 py-2 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-lg text-sm border border-green-500 flex items-center gap-2">
+              <FileArchiveIcon className="w-4 h-4" />
+              Export ZIP Package
+          </button>
           <button onClick={onShowStorageInfo} aria-label="Storage Info" className="p-2 bg-gray-800 border border-gray-600 text-gray-400 hover:text-white rounded-lg transition-all" title="Storage Info">
               <InfoIcon className="w-5 h-5" />
           </button>
