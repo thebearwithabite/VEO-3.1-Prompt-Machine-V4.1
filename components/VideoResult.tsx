@@ -125,6 +125,7 @@ const ShotCard: React.FC<ShotCardProps> = ({
                 src={shot.keyframeImage.startsWith('http') ? shot.keyframeImage : `data:image/png;base64,${shot.keyframeImage}`} 
                 className="w-full h-full object-cover" 
                 referrerPolicy="no-referrer" 
+                alt={shot.pitch ? `Keyframe: ${shot.pitch}` : `Keyframe for shot ${shot.id}`}
               />
             ) : (
               <div className="flex flex-col items-center text-gray-500"><FilmIcon className="w-12 h-12 mb-2" /><span className="text-sm">No Preview</span></div>
@@ -500,7 +501,7 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
           {user ? (
             <div className="flex items-center gap-2 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5">
               {user.photoURL ? (
-                <img src={user.photoURL} className="w-6 h-6 rounded-full" referrerPolicy="no-referrer" />
+                <img src={user.photoURL} className="w-6 h-6 rounded-full" referrerPolicy="no-referrer" alt={`Avatar for ${user.displayName || user.email || 'user'}`} />
               ) : (
                 <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-bold text-white">
                   {user.displayName?.[0] || user.email?.[0] || 'U'}
@@ -619,6 +620,7 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
                                 src={f.image.base64.startsWith('http') ? f.image.base64 : `data:image/png;base64,${f.image.base64}`} 
                                 className="w-full h-full object-cover" 
                                 referrerPolicy="no-referrer" 
+                                alt={f.name || 'Reference media'}
                             />
                             <button 
                                 onClick={() => onRemoveGuidanceFrame(f.id)}
