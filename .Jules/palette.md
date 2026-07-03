@@ -19,3 +19,7 @@
 ## 2026-05-15 - Context-Aware Confirmation Dialog Buttons
 **Learning:** Hardcoded button text in reusable components (like ConfirmDialog always saying "Start New Project") creates extremely confusing UX when the dialog is repurposed for other actions like "Reset Application" or "Approve Cost". In addition, destructive actions lack visual distinction from standard actions.
 **Action:** Always provide props to customize button text (`confirmText`, `cancelText`) in reusable dialogs, and use an `isDestructive` boolean prop to alter the primary action styling (e.g. red background, red icon) when the confirmation will delete data or incur costs. Ensure proper `role="dialog"` and `aria-labelledby`/`aria-describedby` are included for accessibility.
+
+## 2025-02-12 - Accessible dynamic generative UI and modal dialogs
+**Learning:** In AI applications with dynamic logs (like "ActivityLog" streaming status), wrapping the log container with `role="log"` and `aria-live="polite"` makes it much easier for screen reader users to follow the generative process. Additionally, visual modal dialogs require `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` to properly present as modals to assistive technologies and provide appropriate context upon focus.
+**Action:** Always apply `role="log"` and `aria-live` to dynamically updating message feeds, and ensure dialog overlays always include full ARIA dialog attributes.

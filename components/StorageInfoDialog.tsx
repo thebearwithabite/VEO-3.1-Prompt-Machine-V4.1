@@ -15,9 +15,13 @@ const StorageInfoDialog: React.FC<StorageInfoDialogProps> = ({ isOpen, onClose }
 
   return (
     <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-      <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl max-w-2xl w-full p-0 overflow-hidden flex flex-col max-h-[90vh]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="storage-info-dialog-title"
+        className="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl max-w-2xl w-full p-0 overflow-hidden flex flex-col max-h-[90vh]">
         <div className="p-6 border-b border-gray-700 flex justify-between items-center bg-gray-900/50">
-            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+            <h3 id="storage-info-dialog-title" className="text-xl font-bold text-white flex items-center gap-2">
                 <InfoIcon className="w-6 h-6 text-indigo-400" />
                 Storage & Sharing Guide
             </h3>
