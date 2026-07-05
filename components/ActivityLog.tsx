@@ -45,6 +45,8 @@ const ActivityLog: React.FC<ActivityLogProps> = ({entries}) => {
       </h3>
       <div
         ref={logContainerRef}
+        role="log"
+        aria-live="polite"
         className="h-64 overflow-y-auto p-4 space-y-3 font-mono text-sm">
         {entries.map((entry, index) => (
           <div key={index} className="flex items-start gap-3">
