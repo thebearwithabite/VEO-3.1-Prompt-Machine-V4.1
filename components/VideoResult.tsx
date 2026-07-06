@@ -124,6 +124,7 @@ const ShotCard: React.FC<ShotCardProps> = ({
               <img 
                 src={shot.keyframeImage.startsWith('http') ? shot.keyframeImage : `data:image/png;base64,${shot.keyframeImage}`} 
                 className="w-full h-full object-cover" 
+                alt={`Keyframe for ${shot.id}`}
                 referrerPolicy="no-referrer" 
               />
             ) : (
@@ -249,7 +250,7 @@ const ShotCard: React.FC<ShotCardProps> = ({
 
           {isDirectorMode ? (
               <div className="bg-indigo-900/30 border border-indigo-500 rounded-lg p-4 mb-4">
-                  <textarea value={directorFeedback} onChange={(e) => setDirectorFeedback(e.target.value)} placeholder="Director's notes..." className="w-full h-24 bg-black/50 border border-indigo-700 rounded-md p-3 text-sm text-white focus:outline-none" />
+                  <textarea aria-label="Director's notes" value={directorFeedback} onChange={(e) => setDirectorFeedback(e.target.value)} placeholder="Director's notes..." className="w-full h-24 bg-black/50 border border-indigo-700 rounded-md p-3 text-sm text-white focus:outline-none" />
                   <div className="flex justify-end gap-2 mt-3">
                       <button onClick={() => setIsDirectorMode(false)} className="px-3 py-1.5 text-xs text-gray-300">Cancel</button>
                       <button onClick={() => { onRefineShot(shot.id, directorFeedback); setIsDirectorMode(false); }} className="px-4 py-1.5 bg-indigo-600 text-white text-xs font-semibold rounded">Apply Refinement</button>
@@ -257,7 +258,7 @@ const ShotCard: React.FC<ShotCardProps> = ({
               </div>
           ) : isExtendMode ? (
               <div className="bg-green-900/30 border border-green-500 rounded-lg p-4 mb-4">
-                  <textarea value={extendPrompt} onChange={(e) => setExtendPrompt(e.target.value)} placeholder="Extension details..." className="w-full h-24 bg-black/50 border border-green-700 rounded-md p-3 text-sm text-white focus:outline-none" />
+                  <textarea aria-label="Extension details" value={extendPrompt} onChange={(e) => setExtendPrompt(e.target.value)} placeholder="Extension details..." className="w-full h-24 bg-black/50 border border-green-700 rounded-md p-3 text-sm text-white focus:outline-none" />
                   <div className="flex justify-end gap-2 mt-3">
                       <button onClick={() => setIsExtendMode(false)} className="px-3 py-1.5 text-xs text-gray-300">Cancel</button>
                       <button onClick={() => { onExtendVeoVideo(shot.id, extendPrompt); setIsExtendMode(false); }} className="px-4 py-1.5 bg-green-600 text-white text-xs font-semibold rounded">Generate Extend</button>
@@ -265,7 +266,7 @@ const ShotCard: React.FC<ShotCardProps> = ({
               </div>
           ) : isEditing ? (
             <div className="flex flex-col gap-2">
-                <textarea value={editedJson} onChange={(e) => setEditedJson(e.target.value)} className="w-full h-64 overflow-auto font-mono text-xs bg-black/50 border border-indigo-500 rounded-md p-3 text-indigo-100 focus:outline-none" />
+                <textarea aria-label="Edit JSON" value={editedJson} onChange={(e) => setEditedJson(e.target.value)} className="w-full h-64 overflow-auto font-mono text-xs bg-black/50 border border-indigo-500 rounded-md p-3 text-indigo-100 focus:outline-none" />
                 <div className="flex justify-end gap-2">
                     <button onClick={() => setIsEditing(false)} className="px-3 py-1.5 text-xs text-gray-400 hover:text-white">Discard</button>
                     <button onClick={handleSaveEdit} className="px-4 py-1.5 bg-indigo-600 text-white text-xs font-bold rounded">Save Changes</button>
@@ -500,7 +501,7 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
           {user ? (
             <div className="flex items-center gap-2 bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5">
               {user.photoURL ? (
-                <img src={user.photoURL} className="w-6 h-6 rounded-full" referrerPolicy="no-referrer" />
+                <img src={user.photoURL} className="w-6 h-6 rounded-full" alt={`Avatar for ${user.displayName || user.email}`} referrerPolicy="no-referrer" />
               ) : (
                 <div className="w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-bold text-white">
                   {user.displayName?.[0] || user.email?.[0] || 'U'}
@@ -535,7 +536,7 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
                              <TerminalIcon className="w-4 h-4 text-indigo-400" />
                              <h4 className="font-bold text-white text-sm">Resolve MCP Bridge</h4>
                           </div>
-                          <input type="text" value={mcpConfig.url} onChange={(e) => onSetMcpUrl(e.target.value)} placeholder="http://localhost:3000" className="w-full bg-gray-900 border border-gray-600 rounded px-2 py-1.5 text-xs text-white mb-2 focus:outline-none focus:border-indigo-500" />
+                          <input aria-label="MCP Server URL" type="text" value={mcpConfig.url} onChange={(e) => onSetMcpUrl(e.target.value)} placeholder="http://localhost:3000" className="w-full bg-gray-900 border border-gray-600 rounded px-2 py-1.5 text-xs text-white mb-2 focus:outline-none focus:border-indigo-500" />
                           <button onClick={onConnectMcp} className={`w-full py-2 rounded text-xs font-bold transition-colors ${mcpConfig.connected ? 'bg-green-600 text-white' : 'bg-indigo-600 hover:bg-indigo-500 text-white'}`}>
                               {mcpConfig.connected ? 'Connected to Resolve' : 'Connect to MCP Server'}
                           </button>
@@ -618,6 +619,7 @@ const ShotBookDisplay: React.FC<ShotBookDisplayProps> = ({
                             <img 
                                 src={f.image.base64.startsWith('http') ? f.image.base64 : `data:image/png;base64,${f.image.base64}`} 
                                 className="w-full h-full object-cover" 
+                                alt={`Guidance Frame: ${f.name}`}
                                 referrerPolicy="no-referrer" 
                             />
                             <button 
